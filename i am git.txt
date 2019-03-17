@@ -31,6 +31,11 @@ git status
 
 git diff
 
+To download the project in our local machine.
+git clone https://github.com/babiswas/Machine-learning.git
+
+
+
 To check the difference.
 
 git diff --staged
@@ -38,5 +43,20 @@ git diff --staged
 git rm hello1.txt
 
 git log --author="babiswas"
+
+git mv test.txt text1.txt
+
+git mv test1.txt new_project
+
+
+Pushing the project to github.
+
+git remote add pro url
+
+git commit pro master
+
+
+
+
 
 
