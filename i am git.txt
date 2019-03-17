@@ -29,6 +29,14 @@ git log  # to see the activities in the repository.
 
 git status
 
+git diff
+
+To check the difference.
+
+git diff --staged
+
+git rm hello1.txt
+
 git log --author="babiswas"
 
 
