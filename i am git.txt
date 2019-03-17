@@ -1,0 +1,21 @@
+git config --global user.name "babiswas"
+git config --global user.email "biswas0814@gmail.com"
+git config --list
+
+git config user.email
+git help
+
+pwd to get the present working directory
+
+cd .. to go back
+cd folder/
+
+Converting a folder into a git project.
+
+git init
+
+To see the hidden stuff 
+ls -la
+
+clear to clear the screen.
+
