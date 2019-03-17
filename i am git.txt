@@ -27,6 +27,8 @@ git commit -m "this is my first commit"
 
 git log  # to see the activities in the repository.
 
+git status
+
 git log --author="babiswas"
 
 
