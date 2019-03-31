@@ -1,0 +1,49 @@
+import pandas as pd
+df=pd.read_csv('house.csv')
+m=pd.DataFrame(df)
+m.describe()
+value1,value2=0,0
+
+m.columns
+
+m.shape
+
+m[m['sqft_living'].between(2000,4000,inclusive=True)]['sqft_living'].shape
+m[m['sqft_living'].isnull()]
+m.shape
+g=m.groupby(['zipcode'])['price'].agg(['mean', 'count'])
+g.sort_values('mean',ascending=False).head(3)
+g=m.groupby('zipcode').price.mean()
+g.sort_values(ascending=False).head(3)
+import numpy as np
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+
+feature1=m[['bedrooms','bathrooms','sqft_living','sqft_lot','floors','zipcode']]
+target1=m[['price']]
+feature2=m[['bedrooms','bathrooms','sqft_living','sqft_lot','floors','zipcode','condition','grade','waterfront','view','sqft_above','sqft_basement','yr_built','yr_renovated','lat','long','sqft_living15','sqft_lot15']]
+X1_train,x1_test,Y1_train,y1_test=train_test_split(feature1,target1,test_size=0.2,random_state=0)
+lm=linear_model.LinearRegression()
+lm.fit(X1_train,Y1_train)
+predict=lm.predict(x1_test)
+from sklearn import metrics
+print("The mean squared error is:")
+k=metrics.mean_squared_error(predict,y1_test)
+print("The root mean square error:")
+value1=np.sqrt(k)
+value1
+
+X2_train,x2_test,Y2_train,y2_test=train_test_split(feature2,target1,test_size=0.2,random_state=0)
+lm=linear_model.LinearRegression()
+lm.fit(X2_train,Y2_train)
+predict=lm.predict(x2_test)
+from sklearn import metrics
+print("The mean squared error is:")
+k=metrics.mean_squared_error(predict,y2_test)
+print("The root mean square error:")
+value2=np.sqrt(k)
+value2
+
+
+
+
