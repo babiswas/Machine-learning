@@ -1,0 +1,47 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+l=['sepal length','sepal width','petal length','petal width','target']
+df=pd.read_csv('test1.csv',header=None,names=l)
+df.head(20)
+
+y=df[['target']]
+x=df[['sepal length','sepal width','petal length','petal width']]
+x.head()
+
+#standarize the data
+m=df.loc[:,['sepal length','sepal width','petal length','petal width']].values
+n=df.loc[:,['target']].values
+from sklearn.preprocessing import StandardScaler
+x=StandardScaler().fit_transform(m)
+#Reduce the dimension from 4 to 2
+
+#The features are reduced to 2
+
+from sklearn.decomposition import PCA
+pca=PCA(n_components=2)
+pcomp=pca.fit_transform(x)
+pdf=pd.DataFrame(data=pcomp,columns=['pcomp1','pcomp2'])
+pdf.head()
+fdf=pd.concat([pdf,df[['target']]],axis=1)
+fdf.head()
+
+fig=plt.figure(figsize=(8,8))
+ax=fig.add_subplot(1,1,1)
+ax.set_xlabel('PCOM1', fontsize = 15)
+ax.set_ylabel('PCOM2', fontsize = 15)
+ax.set_title('principal component plot',fontsize = 20)
+
+targets = ['setosa','versicolor','virginica']
+colors = ['r', 'g', 'b']
+for target, color in zip(targets,colors):
+    indicesToKeep = fdf['target'] == target
+    ax.scatter(fdf.loc[indicesToKeep,'pcomp1'],fdf.loc[indicesToKeep,'pcomp2'],c = color,s = 50)
+ax.legend(targets)
+ax.grid()
+
+
+
+

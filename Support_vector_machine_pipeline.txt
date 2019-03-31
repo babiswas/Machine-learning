@@ -1,0 +1,23 @@
+from sklearn.pipeline import Pipeline
+from sklearn.decomposition import PCA
+from sklearn.svm import SVC
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import StandardScaler,LabelEncoder
+
+
+df=pd.read_csv("Iris_1.csv")
+es=[('clf',SVC())]
+pipe=Pipeline(es)
+df.head()
+
+from sklearn.preprocessing import LabelEncoder
+X=df.drop(["Id","Species"],axis=1)
+Y=LabelEncoder().fit_transform(df['Species'])
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,random_state=42,test_size=0.3)
+pipe.fit(X_train,Y_train)
+
+pipe.fit(X_train,Y_train)
+pipe.score(X_test,Y_test)

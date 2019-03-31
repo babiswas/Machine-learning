@@ -1,0 +1,66 @@
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+from sklearn.feature_selection import SelectPercentile
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+df=pd.read_csv('breast.csv')
+df.head()
+df.index
+df.columns
+df.head()
+
+rng=np.random.RandomState(42)
+noise=rng.normal(size=(len(df.index),50))
+m=np.transpose(noise)
+for i in range(0,50):
+    str1="noise"+str(i)
+    df[str1]=pd.DataFrame(m[i])
+
+df.columns
+df.describe()
+
+Y=df[['diagnosis']]
+X=df.drop('diagnosis',axis=1)
+X.head()
+
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,random_state=42,test_size=.35)
+
+select=SelectPercentile(percentile=50)
+select.fit(X_train,Y_train)
+X_feature=select.transform(X_train)
+X_train.shape
+X_feature.shape
+mask=select.get_support()
+print(mask)
+plt.matshow(mask.reshape(1,-1),cmap='gray')
+X_train.shape
+Y_train.shape
+X_test.shape
+Y_test.shape
+
+
+columns = np.asarray(X.columns.values)
+support = np.asarray(select.get_support())
+columns_with_support = columns[support]
+columns_with_support
+
+X_test_selected=select.transform(X_test)
+lg=LogisticRegression()
+lg.fit(X_train,Y_train)
+print("Without feture selection {}".format(lg.score(X_test,Y_test)))
+
+Y_test.shape
+X_test_selected.shape
+
+lg.fit(X_feature,Y_train)
+print("With feture selection {}".format(lg.score(X_test_selected,Y_test)))
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60
+https://www.dataschool.io/15-hours-of-expert-machine-learning-videos/
+https://stattrek.com/statistics/dictionary.aspx?definition=z_score

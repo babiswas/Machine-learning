@@ -1,0 +1,37 @@
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+%matplotlib inline
+
+df=pd.read_csv('breast_100.csv')
+df.head(5)
+df.tail(5)
+
+df['radius_mean'].plot.hist(grid=True,bins=30,rwidth=0.85)
+plt.grid(axis='y',alpha=0.75)
+
+def plot_hist(df,i):
+        if df[i].dtype=='float64' or df[i].dtype=='int64':
+            df[i].plot.hist(grid=True,bins=40,rwidth=0.75)
+            plt.grid(axis='y',alpha=0.75)
+
+df.columns
+plot_hist(df,'texture_mean')
+
+plot_hist(df,'texture_mean')
+
+from sklearn.preprocessing import LabelEncoder
+X=df.drop('diagnosis',axis=1)
+l=LabelEncoder()
+X
+Y=l.fit_transform(df['diagnosis'])
+Y
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.3,random_state=42)
+knn=KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train,Y_train)
+print(knn.score(X_test,Y_test))
+

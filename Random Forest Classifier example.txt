@@ -1,0 +1,37 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+%matplotlib inline
+
+df=pd.read_csv('mnist_train.csv')
+df.head()
+df.index
+
+df.head()
+
+a=df.iloc[0,1:].values
+a=a.reshape(28,28).astype('uint8')
+
+plt.imshow(a)
+
+df_x=df.iloc[:,1:]
+df_y=df.iloc[:,0]
+X_train,X_test,Y_train,Y_test=train_test_split(df_x,df_y,test_size=0.2,random_state=40)
+rf=RandomForestClassifier(n_estimators=100)
+rf.fit(X_train,Y_train)
+
+pred=rf.predict(X_test)
+s=Y_test.values
+s
+
+count=0
+pred=rf.predict(X_test)
+for i in range(len(pred)):
+    if s[i]==pred[i]:
+       count=count+1
+print(count)
+
+len(Y_test.values)

@@ -1,0 +1,4 @@
+def plot_hist(df,i):
+        if df[i].dtype=='float64' or df[i].dtype=='int64':
+            df[i].plot.hist(grid=True,bins=40,rwidth=0.75)
+            plt.grid(axis='y',alpha=0.75)
